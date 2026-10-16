@@ -5,6 +5,8 @@ manifest:
   remotes:
     - name: zephyrproject-rtos
       url-base: https://github.com/zephyrproject-rtos
+    - name: id8-engineering
+      url-base: https://github.com/id8-engineering
 
   projects:
     - name: zephyr
@@ -15,3 +17,7 @@ manifest:
           - cmsis_6
           - hal_nordic
 
+    - name: seven-board
+      remote: id8-engineering
+      revision: main
+      path: modules/seven-board
