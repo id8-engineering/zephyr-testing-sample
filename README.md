@@ -77,17 +77,17 @@ Hello World!
 
 Press `Ctrl+A`, release, then press `X` to exit QEMU.
 
-### Physical hardware
+### Seven
 
 ```shell
-west build -p always -b <board> app
+west build -p always -b seven/nrf9151 app
 west flash
 ```
 
-Read the output on the board's serial console, for example:
+Read the output on the board's serial console:
 
 ```shell
 minicom -D /dev/ttyACM0 -b 115200
 ```
 
-Press `Ctrl+A`, then `X` to exit minicom.
+Press `Ctrl+A`, release, then press `X` to exit minicom.
