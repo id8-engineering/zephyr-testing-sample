@@ -136,7 +136,7 @@ Hello World!
 
 Press `Ctrl+A`, release, then press `X` to exit QEMU.
 
-### Seven
+### Run on `Seven`
 
 Build the application:
 
@@ -148,4 +148,12 @@ Flash it to the board:
 
 ```shell
 west flash
+```
+
+## Run tests
+
+Run the tests on `native_sim` and `qemu_cortex_m3` with Twister:
+
+```shell
+west twister -T app --integration
 ```

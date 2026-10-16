@@ -1,0 +1,18 @@
+sample:
+  name: Zephyr Testing Sample
+  description: Reference application printing a startup message
+common:
+  harness: console
+  harness_config:
+    type: one_line
+    regex:
+      - "Hello World!"
+tests:
+  zephyr_testing_sample.hello:
+    platform_allow:
+      - native_sim
+      - qemu_cortex_m3
+      - seven/nrf9151
+    integration_platforms:
+      - native_sim
+      - qemu_cortex_m3
