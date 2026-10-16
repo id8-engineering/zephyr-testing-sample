@@ -135,3 +135,17 @@ Hello World!
 ```
 
 Press `Ctrl+A`, release, then press `X` to exit QEMU.
+
+### Seven
+
+Build the application:
+
+```shell
+west build -p always -b seven/nrf9151 app
+```
+
+Flash it to the board:
+
+```shell
+west flash
+```
