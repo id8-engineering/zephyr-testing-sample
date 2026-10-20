@@ -1,1 +1,4 @@
 name: zephyr-testing-sample
+build:
+  cmake: .
+  kconfig: Kconfig

@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: Copyright 2026 ID8 Engineering AB
+# SPDX-License-Identifier: Apache-2.0
+
+config TELEMETRY_PUBLISHER_LOG
+	bool "Telemetry logger publisher"
+	depends on LOG
+	help
+	  Publish telemetry records to the Zephyr log.
