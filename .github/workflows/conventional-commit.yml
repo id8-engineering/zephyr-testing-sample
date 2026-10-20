@@ -1,0 +1,24 @@
+name: Conventional Commits
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  conventional-commits:
+    name: Conventional Commits
+    runs-on: ubuntu-26.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check commit messages
+        uses: webiny/action-conventional-commits@1dc97face8fcf4db15ad186d34a1e44fdc5f0eb3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
