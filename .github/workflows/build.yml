@@ -1,0 +1,45 @@
+name: Build and test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and test app
+    runs-on: ubuntu-26.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: zephyr-testing-sample
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: 3.12
+
+      - name: Setup Zephyr project
+        uses: zephyrproject-rtos/action-zephyr-setup@be8136a8bba01580485d98b7ad2d32477c36a49a # v1.0.15
+        with:
+          app-path: zephyr-testing-sample
+          toolchains: arm-zephyr-eabi
+          ccache-cache-key: ubuntu-26.04
+
+      - name: Build and run on integration platforms
+        working-directory: zephyr-testing-sample
+        shell: bash
+        run: |
+          west twister -T app -v --inline-logs --integration
+
+      - name: Build for Seven
+        working-directory: zephyr-testing-sample
+        shell: bash
+        run: |
+          west build -p always -b seven/nrf9151 app
