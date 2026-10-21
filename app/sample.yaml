@@ -1,14 +1,14 @@
 sample:
   name: Zephyr Testing Sample
-  description: Reference application printing a startup message
+  description: Reference application publishing telemetry records to the log
 common:
   harness: console
   harness_config:
     type: one_line
     regex:
-      - "Hello World!"
+      - "temperature_mc=21500 humidity_mpct=45000"
 tests:
-  zephyr_testing_sample.hello:
+  zephyr_testing_sample.telemetry_log:
     platform_allow:
       - native_sim
       - qemu_cortex_m3
