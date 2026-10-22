@@ -4,5 +4,6 @@
 menu "Libraries"
 
 rsource "publisher/Kconfig"
+rsource "temp_humidity_sensor/Kconfig"
 
 endmenu

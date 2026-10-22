@@ -1,0 +1,32 @@
+# SPDX-FileCopyrightText: Copyright 2026 ID8 Engineering AB
+# SPDX-License-Identifier: Apache-2.0
+
+config TEMP_HUMIDITY_SENSOR_FAKE
+	bool "Fake temperature and humidity sensor"
+	help
+	  Return configured temperature and humidity values without
+	  physical hardware. Intended for development and testing.
+
+if TEMP_HUMIDITY_SENSOR_FAKE
+
+config TEMP_HUMIDITY_SENSOR_FAKE_TEMPERATURE_MC
+	int "Fake temperature in milli degrees Celsius"
+	default 21500
+	help
+	  Temperature returned by the fake sensor, in milli degrees
+	  Celsius (21500 = 21.5 °C).
+
+config TEMP_HUMIDITY_SENSOR_FAKE_HUMIDITY_MPCT
+	int "Fake relative humidity in milli percent"
+	default 45000
+	range 0 100000
+	help
+	  Relative humidity returned by the fake sensor, in milli percent
+	  (45000 = 45.0 %RH).
+
+config TEMP_HUMIDITY_SENSOR_FAKE_FAIL
+	bool "Simulate a read failure"
+	help
+	  Make every read from the fake sensor fail with -EIO.
+
+endif # TEMP_HUMIDITY_SENSOR_FAKE
