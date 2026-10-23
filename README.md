@@ -178,3 +178,25 @@ Example:
 ```
 [00:00:00.000,000] <inf> publisher_log: seq=0 uptime_ms=0 temperature_mc=21500 humidity_mpct=45000
 ```
+
+## Format code
+
+The C code follows Zephyr's coding style, defined in `.clang-format`.
+
+Install the pinned clang-format version:
+
+```shell
+pip install -r requirements-format.txt
+```
+
+Format all C code:
+
+```shell
+scripts/format.sh
+```
+
+Check formatting without changing any files:
+
+```shell
+scripts/format.sh --check
+```
