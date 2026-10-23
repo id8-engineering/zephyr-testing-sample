@@ -19,9 +19,8 @@ int telemetry_publish(const struct telemetry_record *record)
 		return -EINVAL;
 	}
 
-	LOG_INF("seq=%u uptime_ms=%" PRId64 " temperature_mc=%d humidity_mpct=%u",
-		record->seq, record->uptime_ms,
-		record->temperature_mc, record->humidity_mpct);
+	LOG_INF("seq=%u uptime_ms=%" PRId64 " temperature_mc=%d humidity_mpct=%u", record->seq,
+		record->uptime_ms, record->temperature_mc, record->humidity_mpct);
 
 	return 0;
 }
