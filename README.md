@@ -182,6 +182,7 @@ Example:
 ## Format code
 
 The C code follows Zephyr's coding style, defined in `.clang-format`.
+CI checks the formatting on every pull request.
 
 Install the pinned clang-format version:
 
