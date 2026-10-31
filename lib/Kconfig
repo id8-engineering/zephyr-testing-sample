@@ -4,5 +4,6 @@
 menu "Libraries"
 
 rsource "publisher/Kconfig"
+rsource "environment/Kconfig"
 
 endmenu

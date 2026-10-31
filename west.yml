@@ -19,5 +19,5 @@ manifest:
 
     - name: seven-board
       remote: id8-engineering
-      revision: main
+      revision: 17a07e90e9fc68d08f5ab83b88093ee80f0298b0
       path: modules/seven-board
