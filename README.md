@@ -167,6 +167,10 @@ output:
 west twister -T app --integration
 ```
 
+See
+[Test output and reports](https://docs.zephyrproject.org/latest/develop/twister/index.html#test-output-and-reports)
+in the Twister documentation for where Twister writes its output and logs.
+
 ## Telemetry log format
 
 The logger publisher writes one log line per telemetry record:
