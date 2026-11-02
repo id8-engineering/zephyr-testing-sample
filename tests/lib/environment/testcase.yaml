@@ -1,0 +1,7 @@
+tests:
+  zephyr_testing_sample.lib.environment_fake:
+    tags: environment
+    platform_allow:
+      - native_sim
+    integration_platforms:
+      - native_sim
