@@ -36,7 +36,7 @@ jobs:
         working-directory: zephyr-testing-sample
         shell: bash
         run: |
-          west twister -T app -v --inline-logs --integration
+          west twister -T app -T tests -v --inline-logs --integration
 
       - name: Build for Seven
         working-directory: zephyr-testing-sample
