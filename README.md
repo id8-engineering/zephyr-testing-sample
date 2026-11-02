@@ -152,7 +152,16 @@ west flash
 
 ## Run tests
 
-Run the tests on `native_sim` and `qemu_cortex_m3` with Twister:
+Run all commands from `~/zts-workspace/zephyr-testing-sample`.
+
+Run the unit tests on `native_sim`:
+
+```shell
+west twister -T tests --integration
+```
+
+Run the application on `native_sim` and `qemu_cortex_m3` and check its log
+output:
 
 ```shell
 west twister -T app --integration
