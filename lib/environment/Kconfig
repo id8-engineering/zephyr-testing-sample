@@ -1,0 +1,27 @@
+# SPDX-FileCopyrightText: Copyright 2026 ID8 Engineering AB
+# SPDX-License-Identifier: Apache-2.0
+
+config ENVIRONMENT_FAKE
+	bool "Fake environment"
+	help
+	  Return configured temperature and humidity values without
+	  physical hardware. Intended for development and testing.
+
+if ENVIRONMENT_FAKE
+
+config ENVIRONMENT_FAKE_TEMPERATURE_MC
+	int "Fake temperature in milli degrees Celsius"
+	default 21500
+	help
+	  Temperature returned by the fake environment, in milli degrees
+	  Celsius (21500 = 21.5 °C).
+
+config ENVIRONMENT_FAKE_HUMIDITY_MPCT
+	int "Fake relative humidity in milli percent"
+	default 45000
+	range 0 100000
+	help
+	  Relative humidity returned by the fake environment, in milli
+	  percent (45000 = 45.0 %RH).
+
+endif # ENVIRONMENT_FAKE
