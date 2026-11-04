@@ -107,7 +107,7 @@ west build -t run
 Expected output:
 
 ```
-*** Booting Zephyr OS build v4.5.0-rc1 ***
+*** Booting Zephyr OS build v4.5.0-1358-gfbe8947dd0a1 ***
 [00:00:00.000,000] <inf> publisher_log: seq=0 uptime_ms=0 temperature_mc=21500 humidity_mpct=45000
 ```
 
@@ -130,7 +130,7 @@ west build -t run
 Expected output:
 
 ```
-*** Booting Zephyr OS build v4.5.0-rc1 ***
+*** Booting Zephyr OS build v4.5.0-1358-gfbe8947dd0a1 ***
 [00:00:00.000,000] <inf> publisher_log: seq=0 uptime_ms=0 temperature_mc=21500 humidity_mpct=45000
 ```
 
