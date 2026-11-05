@@ -1,23 +1,16 @@
-manifest:
-  self:
-    path: zephyr-testing-sample
+   manifest:
+     self:
+       path: zephyr-testing-sample
 
-  remotes:
-    - name: zephyrproject-rtos
-      url-base: https://github.com/zephyrproject-rtos
-    - name: id8-engineering
-      url-base: https://github.com/id8-engineering
+     remotes:
+       - name: zephyrproject-rtos
+         url-base: https://github.com/zephyrproject-rtos
 
-  projects:
-    - name: zephyr
-      remote: zephyrproject-rtos
-      revision: v4.5.0-rc1
-      import:
-        name-allowlist:
-          - cmsis_6
-          - hal_nordic
-
-    - name: seven-board
-      remote: id8-engineering
-      revision: 17a07e90e9fc68d08f5ab83b88093ee80f0298b0
-      path: modules/seven-board
+     projects:
+       - name: zephyr
+         remote: zephyrproject-rtos
+         revision: fbe8947dd0a1856f8d557658b755d24b6d71d090
+         import:
+           name-allowlist:
+             - cmsis_6
+             - hal_nordic
