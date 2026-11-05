@@ -166,10 +166,9 @@ output:
 ```shell
 west twister -T app --integration
 ```
-
-See
+Twister writes its output and logs to `twister-out/`. See
 [Test output and reports](https://docs.zephyrproject.org/latest/develop/twister/index.html#test-output-and-reports)
-in the Twister documentation for where Twister writes its output and logs.
+in the Twister documentation for details.
 
 ## Telemetry log format
 
