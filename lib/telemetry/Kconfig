@@ -3,6 +3,7 @@
 
 config TELEMETRY
 	bool "Telemetry records"
+	select JSON_LIBRARY
 	help
 	  Create telemetry records from environment readings, with a
-	  sequence number and system uptime.
+	  sequence number and system uptime, and encode them as JSON.
