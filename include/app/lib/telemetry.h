@@ -6,7 +6,15 @@
 #ifndef APP_LIB_TELEMETRY_H_
 #define APP_LIB_TELEMETRY_H_
 
+#include <stddef.h>
 #include <stdint.h>
+
+/**
+ * @brief Buffer size that fits any JSON encoded telemetry record.
+ *
+ * The longest possible record is 107 characters + the NUL terminator.
+ */
+#define TELEMETRY_JSON_MAX_LEN 128
 
 /**
  * @brief One telemetry record.
@@ -47,5 +55,24 @@ int telemetry_record_create(struct telemetry_record *dst);
  * @brief Reset the sequence number to 0.
  */
 void telemetry_reset(void);
+
+/**
+ * @brief Encode a telemetry record as JSON.
+ *
+ * Writes JSON object to a caller provided buffer. No memory
+ * is allocated dynamically. The field names are the struct member names and
+ * the values use the units of the record:
+ *
+ * @param record Record to encode. Must not be NULL.
+ * @param buffer Buffer to write the JSON string to. Must not be NULL.
+ * @param buffer_size Size of @p buffer in bytes including the NULL
+ *                    terminator. Use TELEMETRY_JSON_MAX_LEN to fit any record.
+ *
+ * @retval 0 if @p buffer contains the encoded record
+ * @retval -EINVAL if @p record or @p buffer is NULL, or @p buffer_size is 0
+ * @retval -ENOMEM if @p buffer is too small. @p buffer then contains an
+ *         empty string.
+ */
+int telemetry_encode_record(const struct telemetry_record *record, char *buffer, size_t buffer_size);
 
 #endif /* APP_LIB_TELEMETRY_H_ */
