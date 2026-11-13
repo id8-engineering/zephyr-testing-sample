@@ -25,4 +25,27 @@ struct telemetry_record {
 	uint32_t humidity_mpct;
 };
 
+/**
+ * @brief Read the environment and create a telemetry record.
+ *
+ * Reads temperature and humidity through environment_read() and adds a
+ * sequence number and the current system uptime.
+ *
+ * The first record after boot or telemetry_reset() has sequence number 0.
+ * The sequence number is incremented only when a record is created. A
+ * failed environment read does not consume a sequence number.
+ *
+ * @param dst Record to populate. Must not be NULL.
+ *
+ * @retval 0 if @p dst was populated
+ * @retval -EINVAL if @p dst is NULL
+ * @retval <0 negative errno code from environment_read();
+ */
+int telemetry_record_create(struct telemetry_record *dst);
+
+/**
+ * @brief Reset the sequence number to 0.
+ */
+void telemetry_reset(void);
+
 #endif /* APP_LIB_TELEMETRY_H_ */

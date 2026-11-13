@@ -3,3 +3,4 @@
 
 add_subdirectory_ifdef(CONFIG_TELEMETRY_PUBLISHER_LOG publisher)
 add_subdirectory_ifdef(CONFIG_ENVIRONMENT_FAKE environment)
+add_subdirectory_ifdef(CONFIG_TELEMETRY telemetry)

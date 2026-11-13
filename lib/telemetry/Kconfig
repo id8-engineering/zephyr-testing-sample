@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: Copyright 2026 ID8 Engineering AB
+# SPDX-License-Identifier: Apache-2.0
+
+config TELEMETRY
+	bool "Telemetry records"
+	help
+	  Create telemetry records from environment readings, with a
+	  sequence number and system uptime.
