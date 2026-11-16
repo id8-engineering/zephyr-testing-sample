@@ -6,7 +6,7 @@ common:
   harness_config:
     type: one_line
     regex:
-      - "temperature_mc=21500 humidity_mpct=45000"
+      - '"temperature_mc":21500,"humidity_mpct":45000'
 tests:
   zephyr_testing_sample.telemetry_log:
     platform_allow:

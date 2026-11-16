@@ -3,10 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <errno.h>
-#include <inttypes.h>
-#include <stddef.h>
-
 #include <zephyr/logging/log.h>
 
 #include <app/lib/publisher.h>
@@ -15,13 +11,15 @@ LOG_MODULE_REGISTER(publisher_log, LOG_LEVEL_INF);
 
 int telemetry_publish(const struct telemetry_record *record)
 {
-	if (record == NULL) {
-		return -EINVAL;
+	char buffer[TELEMETRY_JSON_MAX_LEN];
+	int err;
+
+	err = telemetry_encode_record(record, buffer, sizeof(buffer));
+	if (err < 0) {
+		return err;
 	}
 
-	LOG_INF("seq=%u uptime_ms=%" PRId64 " temperature_mc=%d humidity_mpct=%u",
-		record->seq, record->uptime_ms,
-		record->temperature_mc, record->humidity_mpct);
+	LOG_INF("%s", buffer);
 
 	return 0;
 }

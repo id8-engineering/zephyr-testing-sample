@@ -108,7 +108,7 @@ Expected output:
 
 ```
 *** Booting Zephyr OS build v4.5.0-1358-gfbe8947dd0a1 ***
-[00:00:00.000,000] <inf> publisher_log: seq=0 uptime_ms=0 temperature_mc=21500 humidity_mpct=45000
+[00:00:00.000,000] <inf> publisher_log: {"seq":0,"uptime_ms":0,"temperature_mc":21500,"humidity_mpct":45000}
 ```
 
 Press `Ctrl+C` to stop.
@@ -131,7 +131,7 @@ Expected output:
 
 ```
 *** Booting Zephyr OS build v4.5.0-1358-gfbe8947dd0a1 ***
-[00:00:00.000,000] <inf> publisher_log: seq=0 uptime_ms=0 temperature_mc=21500 humidity_mpct=45000
+[00:00:00.000,000] <inf> publisher_log: {"seq":0,"uptime_ms":0,"temperature_mc":21500,"humidity_mpct":45000}
 ```
 
 Press `Ctrl+A`, release, then press `X` to exit QEMU.
@@ -172,10 +172,11 @@ in the Twister documentation for details.
 
 ## Telemetry log format
 
-The logger publisher writes one log line per telemetry record:
+The logger publisher encodes each telemetry record as a JSON object and writes it
+to one log line. All values are integers using the field names and units below:
 
 ```
-<inf> publisher_log: seq=<seq> uptime_ms=<uptime_ms> temperature_mc=<temperature_mc> humidity_mpct=<humidity_mpct>
+<inf> publisher_log: {"seq":0,"uptime_ms":0,"temperature_mc":21500,"humidity_mpct":45000}
 ```
 
 | Field            | Type       | Unit                  | Description       | Example                |
@@ -188,5 +189,11 @@ The logger publisher writes one log line per telemetry record:
 Example:
 
 ```
-[00:00:00.000,000] <inf> publisher_log: seq=0 uptime_ms=0 temperature_mc=21500 humidity_mpct=45000
+[00:00:00.000,000] <inf> publisher_log: {"seq":0,"uptime_ms":0,"temperature_mc":21500,"humidity_mpct":45000}
+```
+
+Example JSON record:
+
+```
+{"seq":0,"uptime_ms":0,"temperature_mc":21500,"humidity_mpct":45000}
 ```

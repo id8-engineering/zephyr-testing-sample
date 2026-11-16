@@ -4,5 +4,6 @@
 config TELEMETRY_PUBLISHER_LOG
 	bool "Telemetry logger publisher"
 	depends on LOG
+	select TELEMETRY
 	help
-	  Publish telemetry records to the Zephyr log.
+	  Encode telemetry records as JSON and publish them to the Zephyr log.
