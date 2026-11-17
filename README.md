@@ -170,6 +170,32 @@ Twister writes its output and logs to `twister-out/`. See
 [Test output and reports](https://docs.zephyrproject.org/latest/develop/twister/index.html#test-output-and-reports)
 in the Twister documentation for details.
 
+## Code Formatting
+
+All C code must follow the [Zephyr coding style](https://docs.zephyrproject.org/latest/contribute/style/code.html).
+
+This project uses `pre-commit` to automatically format C code with `clang-format` before each commit.
+
+Install `pre-commit` in your virtual environment:
+
+```shell
+pip install pre-commit
+```
+
+Enable the Git hook (once per clone):
+
+```shell
+pre-commit install
+```
+
+If formatting changes are made, the commit will be aborted. Stage the changes and commit again.
+
+To manually format all tracked files:
+
+```shell
+pre-commit run --all-files
+```
+
 ## Telemetry log format
 
 The logger publisher encodes each telemetry record as a JSON object and writes it
