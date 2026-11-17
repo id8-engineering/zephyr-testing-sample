@@ -26,8 +26,8 @@ int telemetry_encode_record(const struct telemetry_record *record, char *buffer,
 		return -EINVAL;
 	}
 
-	err = json_obj_encode_buf(telemetry_descr, ARRAY_SIZE(telemetry_descr), record,
-				  buffer, buffer_size);
+	err = json_obj_encode_buf(telemetry_descr, ARRAY_SIZE(telemetry_descr), record, buffer,
+				  buffer_size);
 	if (err < 0) {
 		return err;
 	}

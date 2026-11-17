@@ -73,6 +73,7 @@ void telemetry_reset(void);
  * @retval -ENOMEM if @p buffer is too small. @p buffer then contains an
  *         empty string.
  */
-int telemetry_encode_record(const struct telemetry_record *record, char *buffer, size_t buffer_size);
+int telemetry_encode_record(const struct telemetry_record *record, char *buffer,
+			    size_t buffer_size);
 
 #endif /* APP_LIB_TELEMETRY_H_ */
