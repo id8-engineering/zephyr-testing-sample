@@ -6,5 +6,6 @@ menu "Libraries"
 rsource "publisher/Kconfig"
 rsource "environment/Kconfig"
 rsource "telemetry/Kconfig"
+rsource "telemetry_queue/Kconfig"
 
 endmenu

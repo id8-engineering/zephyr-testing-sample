@@ -9,6 +9,11 @@
 #include <stdint.h>
 #include <app/lib/telemetry.h>
 
+/**
+ * @brief Maximum number of records the queue can hold.
+ *
+ * When the queue is full, adding a record discards the oldest one.
+ */
 #define TELEMETRY_MAX_RECORDS 16
 
 /**
