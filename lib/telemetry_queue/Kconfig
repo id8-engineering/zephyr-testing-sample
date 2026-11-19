@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: Copyright 2026 ID8 Engineering AB
+# SPDX-License-Identifier: Apache-2.0
+
+config TELEMETRY_QUEUE
+	bool "Telemetry record queue"
+	help
+	  Buffer telemetry records in a fixed-size FIFO queue. When the
+	  queue is full, the oldest record is discarded.
