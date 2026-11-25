@@ -2,6 +2,10 @@
 
 How to set up, build and run this repository.
 
+The application samples a sensor periodically, buffers the readings and
+publishes them as JSON. See [docs/architecture.md](docs/architecture.md) for
+how it is built.
+
 ## Prerequisites
 
 Follow the official
