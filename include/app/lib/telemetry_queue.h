@@ -38,21 +38,35 @@ int telemetry_queue_add(const struct telemetry_record *src);
 /**
  * @brief Copy the oldest record without removing it.
  *
- * @param dst Record to populate with the oldest record. Must not be NULL.
+ * Create a struct telemetry_record and pass its address. The oldest record
+ * is copied into it and stays in the queue. Use the copy, for example to
+ * publish it, and then remove the record with telemetry_queue_remove(), using
+ * the sequence number of the copy.
  *
- * @retval 0 if @p dst was populated
+ * @param dst Struct to copy the oldest record into. Must not be NULL.
+ *
+ * @retval 0 if the oldest record was copied to @p dst
  * @retval -ENODATA if the queue is empty
  * @retval -EINVAL if @p dst is NULL
  */
 int telemetry_queue_peek(struct telemetry_record *dst);
 
 /**
- * @brief Remove the oldest record.
+ * @brief Remove the oldest record if it has the given sequence number.
+ *
+ * Pass the sequence number of the record returned by telemetry_queue_peek().
+ * The record is removed only if it is still the oldest one. If
+ * telemetry_queue_add() discarded it in the meantime because the queue was
+ * full, nothing is removed, so a record that was never read is not lost.
+ *
+ * @param seq Sequence number of the record to remove.
  *
  * @retval 0 if the oldest record was removed
  * @retval -ENODATA if the queue is empty
+ * @retval -ENOENT if the oldest record has another sequence number. Nothing
+ *         is removed.
  */
-int telemetry_queue_remove(void);
+int telemetry_queue_remove(uint32_t seq);
 
 /**
  * @brief Get the number of records currently in the queue.
