@@ -71,6 +71,15 @@ int telemetry_queue_remove(uint32_t seq);
 /**
  * @brief Get the number of records currently in the queue.
  *
+ * Checks how many records the queue holds without removing them.
+ *
+ * It can also be used to log how many records are waiting to be published,
+ * for example while the connection is down.
+ *
+ * The value is a snapshot. Another thread can add or remove a record right
+ * after the call, so do not use it to decide whether to peek or remove. Check
+ * the return value of telemetry_queue_peek() instead.
+ *
  * @return Number of records.
  */
 uint32_t telemetry_queue_count(void);
