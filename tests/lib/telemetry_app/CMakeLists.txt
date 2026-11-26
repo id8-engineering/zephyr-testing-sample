@@ -6,6 +6,6 @@ find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(telemetry_app_test)
 target_sources(app PRIVATE src/test_telemetry_app.c)
 
-# publishing.h is private to the telemetry_app library, so it is not in
-# include/. Unit tests use it directly.
+# sampling.h and publishing.h are private to the telemetry_app library, so
+# they are not in include/. Unit tests use them directly.
 target_include_directories(app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../lib/telemetry_app)
