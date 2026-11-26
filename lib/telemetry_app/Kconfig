@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: Copyright 2026 ID8 Engineering AB
+# SPDX-License-Identifier: Apache-2.0
+
+config TELEMETRY_APP
+	bool "Telemetry application"
+	select TELEMETRY_QUEUE
+	help
+	  Publish the queued telemetry records, oldest first, on a
+	  workqueue of its own. A record stays in the queue until it has
+	  been published, or until it is discarded because the queue is
+	  full.

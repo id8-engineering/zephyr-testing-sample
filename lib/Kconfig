@@ -7,5 +7,6 @@ rsource "publisher/Kconfig"
 rsource "environment/Kconfig"
 rsource "telemetry/Kconfig"
 rsource "telemetry_queue/Kconfig"
+rsource "telemetry_app/Kconfig"
 
 endmenu
