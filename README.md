@@ -2,6 +2,10 @@
 
 How to set up, build and run this repository.
 
+The application samples a sensor periodically, buffers the readings and
+publishes them as JSON. See [docs/architecture.md](docs/architecture.md) for
+how it is built.
+
 ## Prerequisites
 
 Follow the official
@@ -90,6 +94,15 @@ Run all commands from `~/zts-workspace/zephyr-testing-sample`.
 > west build -p always -b <board> app
 > ```
 
+### Change the sampling interval
+
+The interval is set by `CONFIG_TELEMETRY_APP_SAMPLE_INTERVAL_MS`. To sample every
+second, for example:
+
+```shell
+west build -p always -b native_sim app -- -DCONFIG_TELEMETRY_APP_SAMPLE_INTERVAL_MS=1000
+```
+
 ### Run on `native_sim`
 
 Build the application:
@@ -104,11 +117,13 @@ Run the application:
 west build -t run
 ```
 
-Expected output:
+Expected output, one record every 10 seconds:
 
 ```
 *** Booting Zephyr OS build v4.5.0-1358-gfbe8947dd0a1 ***
-[00:00:00.000,000] <inf> publisher_log: {"seq":0,"uptime_ms":0,"temperature_mc":21500,"humidity_mpct":45000}
+[00:00:00.010,000] <inf> publisher_log: {"seq":0,"uptime_ms":10,"temperature_mc":21500,"humidity_mpct":45000}
+[00:00:10.010,000] <inf> publisher_log: {"seq":1,"uptime_ms":10010,"temperature_mc":21500,"humidity_mpct":45000}
+[00:00:20.010,000] <inf> publisher_log: {"seq":2,"uptime_ms":20010,"temperature_mc":21500,"humidity_mpct":45000}
 ```
 
 Press `Ctrl+C` to stop.
@@ -127,11 +142,13 @@ Run the application:
 west build -t run
 ```
 
-Expected output:
+Expected output, one record every 10 seconds:
 
 ```
 *** Booting Zephyr OS build v4.5.0-1358-gfbe8947dd0a1 ***
-[00:00:00.000,000] <inf> publisher_log: {"seq":0,"uptime_ms":0,"temperature_mc":21500,"humidity_mpct":45000}
+[00:00:00.010,000] <inf> publisher_log: {"seq":0,"uptime_ms":10,"temperature_mc":21500,"humidity_mpct":45000}
+[00:00:10.010,000] <inf> publisher_log: {"seq":1,"uptime_ms":10010,"temperature_mc":21500,"humidity_mpct":45000}
+[00:00:20.010,000] <inf> publisher_log: {"seq":2,"uptime_ms":20010,"temperature_mc":21500,"humidity_mpct":45000}
 ```
 
 Press `Ctrl+A`, release, then press `X` to exit QEMU.

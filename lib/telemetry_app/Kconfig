@@ -1,0 +1,25 @@
+# SPDX-FileCopyrightText: Copyright 2026 ID8 Engineering AB
+# SPDX-License-Identifier: Apache-2.0
+
+config TELEMETRY_APP
+	bool "Telemetry application"
+	select TELEMETRY
+	select TELEMETRY_QUEUE
+	help
+	  Take a sensor reading every sampling interval, add it as a
+	  telemetry record to the telemetry queue and publish the queued
+	  records, oldest first. A record stays in the queue until it has
+	  been published, or until it is discarded because the queue is
+	  full. Sampling and publishing run on two workqueues of their own.
+
+if TELEMETRY_APP
+
+config TELEMETRY_APP_SAMPLE_INTERVAL_MS
+	int "Sampling interval in milliseconds"
+	default 10000
+	range 1 3600000
+	help
+	  Time between two telemetry readings. Lower it to observe
+	  several records quickly, for example in tests.
+
+endif # TELEMETRY_APP

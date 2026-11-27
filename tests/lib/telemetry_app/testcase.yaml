@@ -1,0 +1,7 @@
+tests:
+  zephyr_testing_sample.lib.telemetry_app:
+    tags: telemetry_app
+    platform_allow:
+      - native_sim
+    integration_platforms:
+      - native_sim

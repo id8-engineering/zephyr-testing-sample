@@ -97,7 +97,7 @@ static void remove_and_check_records(uint8_t first_seq, uint8_t n)
 	for (uint8_t i = 0; i < n; i++) {
 		zassert_ok(telemetry_queue_peek(&oldest));
 		zassert_equal(oldest.seq, first_seq + i);
-		zassert_ok(telemetry_queue_remove());
+		zassert_ok(telemetry_queue_remove(oldest.seq));
 	}
 
 	zassert_equal(telemetry_queue_count(), 0U);
@@ -246,7 +246,7 @@ ZTEST(telemetry_queue_test, test_add_after_remove_from_full_queue_returns_0)
 	const struct telemetry_record record = {.seq = TELEMETRY_MAX_RECORDS};
 
 	fill_queue();
-	zassert_ok(telemetry_queue_remove());
+	zassert_ok(telemetry_queue_remove(0));
 
 	zassert_ok(telemetry_queue_add(&record));
 
@@ -360,7 +360,7 @@ ZTEST(telemetry_queue_test, test_remove_non_empty_queue_returns_0)
 
 	zassert_ok(telemetry_queue_add(&record));
 
-	int ret = telemetry_queue_remove();
+	int ret = telemetry_queue_remove(record.seq);
 
 	zassert_ok(ret);
 }
@@ -374,7 +374,7 @@ ZTEST(telemetry_queue_test, test_remove_decrements_count)
 {
 	add_records(1, 2);
 
-	zassert_ok(telemetry_queue_remove());
+	zassert_ok(telemetry_queue_remove(1));
 
 	zassert_equal(telemetry_queue_count(), 1U);
 }
@@ -391,7 +391,7 @@ ZTEST(telemetry_queue_test, test_remove_discards_oldest_record)
 
 	add_records(1, 2);
 
-	zassert_ok(telemetry_queue_remove());
+	zassert_ok(telemetry_queue_remove(1));
 
 	zassert_ok(telemetry_queue_peek(&oldest));
 	zassert_equal(oldest.seq, 2U);
@@ -404,7 +404,63 @@ ZTEST(telemetry_queue_test, test_remove_discards_oldest_record)
  */
 ZTEST(telemetry_queue_test, test_remove_empty_queue_returns_enodata)
 {
-	int ret = telemetry_queue_remove();
+	int ret = telemetry_queue_remove(0);
 
 	zassert_equal(ret, -ENODATA);
+}
+
+/**
+ * @brief Remove with another seq than the oldest record should return -ENOENT.
+ *
+ * Adds seq 1 and seq 2 and tries to remove seq 2. Seq 1 is the oldest so
+ * the seq does not match and remove should refuse with -ENOENT.
+ */
+ZTEST(telemetry_queue_test, test_remove_wrong_seq_returns_enoent)
+{
+	add_records(1, 2);
+
+	int ret = telemetry_queue_remove(2);
+
+	zassert_equal(ret, -ENOENT);
+}
+
+/**
+ * @brief Remove with the wrong seq should leave the queue as it was.
+ *
+ * Adds seq 1 and seq 2 and tries to remove seq 2. Nothing should be taken
+ * out so both records should still be there in the same order.
+ */
+ZTEST(telemetry_queue_test, test_remove_wrong_seq_keeps_records)
+{
+	add_records(1, 2);
+
+	zassert_equal(telemetry_queue_remove(2), -ENOENT);
+
+	remove_and_check_records(1, 2);
+}
+
+/**
+ * @brief A record discarded while it was published should not take another one with it.
+ *
+ * This is what happens when publishing is slow and the queue fills up in
+ * the meantime:
+ * 1. The publisher peeks the oldest record, seq 0, and starts publishing it.
+ * 2. A new sample is added to the full queue, which discards seq 0.
+ * 3. The publisher is done and removes seq 0.
+ *
+ * Seq 0 is already gone, so remove should return -ENOENT and seq 1, which
+ * was never published, should still be the oldest record.
+ */
+ZTEST(telemetry_queue_test, test_remove_after_oldest_discarded_keeps_next_record)
+{
+	const struct telemetry_record new_record = {.seq = TELEMETRY_MAX_RECORDS};
+	struct telemetry_record published;
+
+	fill_queue();
+	zassert_ok(telemetry_queue_peek(&published));
+
+	zassert_equal(telemetry_queue_add(&new_record), 1);
+
+	zassert_equal(telemetry_queue_remove(published.seq), -ENOENT);
+	remove_and_check_records(1, TELEMETRY_MAX_RECORDS);
 }

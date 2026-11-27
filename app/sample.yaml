@@ -4,9 +4,15 @@ sample:
 common:
   harness: console
   harness_config:
-    type: one_line
+    type: multi_line
+    ordered: true
     regex:
-      - '"temperature_mc":21500,"humidity_mpct":45000'
+      - '"seq":0,"uptime_ms":\d+,"temperature_mc":21500,"humidity_mpct":45000'
+      - '"seq":1,"uptime_ms":\d+,"temperature_mc":21500,"humidity_mpct":45000'
+      - '"seq":2,"uptime_ms":\d+,"temperature_mc":21500,"humidity_mpct":45000'
+  # Sample faster than the 10 s default so testing does not need to wait 20 s.
+  extra_configs:
+    - CONFIG_TELEMETRY_APP_SAMPLE_INTERVAL_MS=1000
 tests:
   zephyr_testing_sample.telemetry_log:
     platform_allow:
